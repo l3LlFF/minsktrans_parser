@@ -292,7 +292,7 @@ def to_database(data):
 
 if __name__ == '__main__':
 
-    vehicles = ['tram']
+    vehicles = config('VEHICLES').split(',')
     print(f"Started {type} objects parsing")
     proxies = get_proxy('proxy.txt')
     chunked_urls = chunks(vehicles, len(vehicles) // len(proxies))
@@ -306,5 +306,4 @@ if __name__ == '__main__':
               proxies=proxies, n_semaphores=NUM_SEMAPHORES)
     clear_list(result)
     df = pd.DataFrame(result, columns=['id', 'IdEndStop', 'TripType', 'way', 'IsApparel'])
-    print(df)
     to_database(df)
